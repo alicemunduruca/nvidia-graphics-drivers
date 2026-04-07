@@ -1,3 +1,16 @@
+nvidia-graphics-drivers-590 (590.48.01-0ubuntu0.25.10.5) questing; urgency=medium
+
+  * Enable IBT for NVIDIA drivers (LP: #2122077)
+  * Fix suspend crash (kernel BUG at jump_label.c) caused by thunk-Kbuild.patch
+    disabling objtool on nvidia.ko and nvidia-modeset.ko, which skipped the
+    jump_label NOP conversion needed by CONFIG_HAVE_JUMP_LABEL_HACK. Add
+    dkms-objtool-jl.sh helper script invoked from the DKMS MAKE command to
+    run objtool --hacks=jump_label after module build (POST_BUILD runs too
+    late — after strip/sign/compress). Cherry-pick from PR #85 (LP: #2143635)
+  * Fix thunk build error, backport from 595-resolute
+
+ -- Alice C. Munduruca <alice.munduruca@canonical.com>  Fri, 10 Apr 2026 15:45:41 -0400
+
 nvidia-graphics-drivers-590 (590.48.01-0ubuntu0.25.10.4) questing; urgency=medium
 
   * Blacklist nova driver in modprobe (LP: #2142443)
